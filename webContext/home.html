@@ -486,6 +486,33 @@
 		</div>
 	</div>
 	<!-- end 下载 -->
+	<!-- 二维码提示框 -->
+	<div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModelTitle">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="qrCodeModelTitle">
+						<span class="glyphicon glyphicon-cloud-download"></span> 下载
+					</h4>
+				</div>
+				<div class="modal-body">
+					<h5 id="qrFileName" class="wordbreak">提示：您确认要下载文件：[]么？</h5>
+					<div class="collapse" id="downloadURLCollapse">
+						<div id="qrLoadHrefBox" class="well well-sm wordbreak"></div>
+					</div>
+					<div id="qrcode"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<span id="downloadFileBox"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end 二维码 -->
 	<!-- 删除提示框 -->
 	<div class="modal fade bs-example-modal-sm" id="deleteFileModal" tabindex="-1" role="dialog"
 		aria-labelledby="deleteFileModelTitle">
@@ -815,6 +842,8 @@
 <!-- 音乐播放器 -->
 <script type="text/javascript" src="js/APlayer.min.js"></script>
 <!-- 页面操作定义 -->
-<script type="text/javascript" src="js/home.min.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
+<!-- 二维码相关库 -->
+<script type="text/javascript" src="js/qrcode.min.js"></script>
 
 </html>

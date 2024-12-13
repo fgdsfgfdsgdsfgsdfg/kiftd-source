@@ -1187,6 +1187,14 @@ function createFileRow(fi, aL, aD, aR, aO) {
 			+ replaceAllQuotationMarks(fi.fileName)
 			+ '"'
 			+ ")' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-link'></span> 链接</button>";
+		fileRow = fileRow
+			+ "<button onclick='getQrCode("
+			+ '"'
+			+ fi.fileId
+			+ '","'
+			+ replaceAllQuotationMarks(fi.fileName)
+			+ '"'
+			+ ")' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-play'></span> 生成二维码</button>";
 	}
 	if (!aR && !aD && !aL && !aO) {
 		fileRow = fileRow + "--";
@@ -1975,6 +1983,44 @@ function getSuffix(filename) {
 // 播放指定格式的视频
 function playVideo(fileId) {
 	window.open("quickview/video.html?fileId=" + fileId);
+}
+
+function getQrCode(fileId,fileName){
+	$("#qrcode").html('');
+	$("#qrFileName").text("提示：您确认要下载文件二维码：[" + fileName + "]么？");
+	$("#qrLoadHrefBox").html("<span class='text-muted'>正在生成...</span>");
+	$("#qrCodeModal").modal('show');
+	$.ajax({
+		type: "POST",
+		dataType: "text",
+		url: "homeController/getFileChainKey.ajax",
+		data: {
+			fid: fileId
+		},
+		success: function(result) {
+			switch (result) {
+				case "ERROR":
+					$("#fileChainTextarea").text("提示：获取失败，请刷新页面或稍后再试。");
+					break;
+				case "mustlogin":
+					window.location.href = "prv/login.html";
+					break;
+				default:
+					new QRCode(document.getElementById("qrcode"),
+						window.location.protocol
+						+ "//"
+						+ window.location.host
+						+ "/externalLinksController/chain/"
+						+ encodeURIComponent(fileName.replace(/\\/g,
+							"_")) + "?ckey="
+						+ encodeURIComponent(result))
+					break;
+			}
+		},
+		error: function() {
+			$("#fileChainTextarea").text("提示：获取失败，无法连接服务器。");
+		}
+	});
 }
 
 // 预览PDF文档

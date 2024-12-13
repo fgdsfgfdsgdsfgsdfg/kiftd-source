@@ -27,7 +27,7 @@ import kohgylw.kiftd.server.util.RangeFileStreamWriter;
 @Service
 public class ExternalDownloadServiceImpl extends RangeFileStreamWriter implements ExternalDownloadService {
 
-	private static Map<String, String> downloadKeyMap = new HashMap<>();// 凭证池，用于存储生成好的下载凭证
+	private static final Map<String, String> downloadKeyMap = new HashMap<>();// 凭证池，用于存储生成好的下载凭证
 	private static final String CONTENT_TYPE = "application/octet-stream";
 
 	@Resource
@@ -80,7 +80,7 @@ public class ExternalDownloadServiceImpl extends RangeFileStreamWriter implement
 		// 权限凭证有效性并确认其对应的资源
 		if (dkey != null) {
 			// 找到要下载的文件节点
-			String fId = null;
+			String fId;
 			synchronized (downloadKeyMap) {
 				fId = downloadKeyMap.get(dkey);
 			}
