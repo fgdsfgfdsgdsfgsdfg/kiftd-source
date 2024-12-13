@@ -1194,7 +1194,7 @@ function createFileRow(fi, aL, aD, aR, aO) {
 			+ '","'
 			+ replaceAllQuotationMarks(fi.fileName)
 			+ '"'
-			+ ")' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-play'></span> 生成二维码</button>";
+			+ ")' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-qrcode'></span> 生成二维码</button>";
 	}
 	if (!aR && !aD && !aL && !aO) {
 		fileRow = fileRow + "--";
