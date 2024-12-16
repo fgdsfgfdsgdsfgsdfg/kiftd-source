@@ -1,5 +1,7 @@
 package kohgylw.kiftd.server.ctl;
 
+import org.apache.tomcat.util.net.SSLHostConfig;
+import org.apache.tomcat.util.net.SSLHostConfigCertificate;
 import org.springframework.boot.web.servlet.server.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.context.annotation.*;
@@ -171,13 +173,28 @@ public class KiftdCtl {
 	private Connector createHttpsConnector() {
 		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
 		// 配置针对Https的支持
-		connector.setScheme("https");// 设置请求协议头
-		connector.setPort(ConfigureReader.instance().getHttpsPort());// 设置https请求端口
+		connector.setScheme("https"); // 设置请求协议头
+		connector.setPort(ConfigureReader.instance().getHttpsPort()); // 设置https请求端口
 		Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
-		protocol.setSSLEnabled(true);// 开启SSL加密通信
-		protocol.setKeystoreFile(ConfigureReader.instance().getHttpsKeyFile());// 设置证书文件
-		protocol.setKeystoreType(ConfigureReader.instance().getHttpsKeyType());// 设置加密类别（PKCS12/JKS）
-		protocol.setKeystorePass(ConfigureReader.instance().getHttpsKeyPass());// 设置证书密码
+		// 开启SSL加密通信
+		protocol.setSSLEnabled(true);
+		// 创建 SSLHostConfig 对象
+		SSLHostConfig sslHostConfig = new SSLHostConfig();
+		// 创建 SSLHostConfigCertificate 对象
+		SSLHostConfigCertificate cert = new SSLHostConfigCertificate(sslHostConfig, SSLHostConfigCertificate.Type.UNDEFINED);
+		// 设置证书文件
+		String keyStoreFile = ConfigureReader.instance().getHttpsKeyFile();
+		cert.setCertificateKeystoreFile(keyStoreFile);
+		// 设置加密类别（PKCS12/JKS）
+		String keyStoreType = ConfigureReader.instance().getHttpsKeyType();
+		cert.setCertificateKeystoreType(keyStoreType);
+		// 设置证书密码
+		String keyStorePass = ConfigureReader.instance().getHttpsKeyPass();
+		cert.setCertificateKeystorePassword(keyStorePass);
+		// 将证书配置添加到 SSLHostConfig
+		sslHostConfig.addCertificate(cert);
+		// 将 SSLHostConfig 添加到协议处理器
+		protocol.addSslHostConfig(sslHostConfig);
 		return connector;
 	}
 }
