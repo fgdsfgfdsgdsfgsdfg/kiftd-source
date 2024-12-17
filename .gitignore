@@ -2,6 +2,7 @@
 /filesystem
 /.idea
 /out
+/libs
 *.iml
 *.log
 
