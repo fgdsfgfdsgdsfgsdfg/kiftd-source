@@ -1,0 +1,7 @@
+<suppressions>
+    <suppression>
+        <notes>Personal maven project</notes>
+        <groupId>kiftd</groupId>
+        <artifactId>kiftd-convert</artifactId>
+    </suppression>
+</suppressions>
