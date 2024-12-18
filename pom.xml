@@ -20,6 +20,7 @@
 		<spring-boot.version>2.7.18</spring-boot.version>
 		<kiftd.version>1.2.3-SNAPSHOT</kiftd.version>
 		<dependency-check-maven.version>11.1.1</dependency-check-maven.version>
+		<hutool.version>5.8.34</hutool.version>
 	</properties>
 
 	<!-- 外部资源 -->
@@ -67,8 +68,7 @@
 		<!-- end Gson -->
 
 		<!-- file 操作资源 -->
-		<!--
-		https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<!--		https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -190,6 +190,12 @@
 			<artifactId>flexmark</artifactId>
 			<version>0.50.50</version>
 		</dependency>
+		<dependency>
+			<groupId>kiftd</groupId>
+			<artifactId>kiftd-convert</artifactId>
+			<version>1.2.3-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
 		<!-- end Markdown解析器 -->
 
 	</dependencies>
@@ -200,6 +206,14 @@
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${spring-boot.version}</version>
 				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>cn.hutool</groupId>
+				<artifactId>hutool-bom</artifactId>
+				<version>${hutool.version}</version>
+				<type>pom</type>
+				<!-- 注意这里是import -->
 				<scope>import</scope>
 			</dependency>
 		</dependencies>

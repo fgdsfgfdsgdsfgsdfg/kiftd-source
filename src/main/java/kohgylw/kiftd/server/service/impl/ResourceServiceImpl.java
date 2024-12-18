@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import kohgylw.kiftd.printer.Printer;
 import kohgylw.kiftd.server.enumeration.AccountAuth;
-import kohgylw.kiftd.server.enumeration.PowerPointType;
 import kohgylw.kiftd.server.mapper.FolderMapper;
 import kohgylw.kiftd.server.mapper.NodeMapper;
 import kohgylw.kiftd.server.model.Node;
@@ -404,8 +403,8 @@ public class ResourceServiceImpl implements ResourceService {
 							String ip = idg.getIpAddr(request);
 							// 执行转换并写出输出流
 							try {
-								p2pu.convertPdf(new FileInputStream(file), response.getOutputStream(),
-										".ppt".equals(suffix) ? PowerPointType.PPT : PowerPointType.PPTX);
+								p2pu.convertPdf(file, response.getOutputStream()
+								);
 								lu.writeDownloadFileEvent(account, ip, n);
 								return;
 							} catch (IOException e) {
